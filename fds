@@ -1,0 +1,186 @@
+# Define the folder path where the XML files are stored
+$folderPath = "C:\MUFG\IN\BIFAST"
+
+# Processing Time - Get Timestamp Start
+$timestamp_start = Get-Date
+
+# Get Day-1
+$todaysDate = Get-Date
+$todaysDateMin = $todaysDate.AddDays(-1)
+$dateString = $todaysDateMin.ToString("yyyy-MM-dd")
+$dateStringfile = $todaysDateMin.ToString("yyyyMMdd")
+
+# Get all XML files in the folder
+$xmlFiles = Get-ChildItem -Path $folderPath -Filter *.xml
+
+# Define the regex pattern to match the XML tag and extract its value
+$pattern_fds = "<ns2:AddtlInf>(.*?)</ns2:AddtlInf>"
+$pattern_type = "<ns2:TxSts>(.*?)</ns2:TxSts>"
+$pattern_id = "<ns2:OrgnlEndToEndId>(.*?)</ns2:OrgnlEndToEndId>"
+$pattern_date = "<ns2:IntrBkSttlmDt>(.*?)</ns2:IntrBkSttlmDt>"
+$pattern_sender_bank1 = "<ns2:DbtrAgt>(.*?)</ns2:DbtrAgt>"
+$pattern_sender_bank2 = "<ns2:Id>(.*?)</ns2:Id>"
+$pattern_sender_name1 = "<ns2:Dbtr>(.*?)</ns2:Dbtr>"
+$pattern_sender_name2 = "<ns2:Nm>(.*?)</ns2:Nm>"
+$pattern_sender_acc1 = "<ns2:DbtrAcct>(.*?)</ns2:DbtrAcct>"
+$pattern_sender_acc2 = "<ns2:Othr>(.*?)</ns2:Othr>"
+$pattern_sender_acc3 = "<ns2:Id>(.*?)</ns2:Id>"
+$pattern_benef_bank1 = "<ns2:CdtrAgt>(.*?)</ns2:CdtrAgt>"
+$pattern_benef_bank2 = "<ns2:Id>(.*?)</ns2:Id>"
+$pattern_benef_name1 = "<ns2:Cdtr>(.*?)</ns2:Cdtr>"
+$pattern_benef_name2 = "<ns2:Nm>(.*?)</ns2:Nm>"
+$pattern_benef_acc1 = "<ns2:CdtrAcct>(.*?)</ns2:CdtrAcct>"
+$pattern_benef_acc2 = "<ns2:Othr>(.*?)</ns2:Othr>"
+$pattern_benef_acc3 = "<ns2:Id>(.*?)</ns2:Id>"
+$pattern_timestamp = "<ns2:CreDtTm>(.*?)</ns2:CreDtTm>"
+
+# Initiate the array result
+$Array_Result = @()
+$Array_ResultSC = @()
+$Array_ResultCT = @()
+$Array_ResultSC_e2eid = @()
+$Array_ResultCT_e2eid = @()
+
+# ----- Main process to read all files in the folder -----
+# Loop through each XML file - OUTGOING FAST
+foreach ($file in $xmlFiles) {
+    # Read the content of the XML file
+    $content = Get-Content -Path $file.FullName -Raw
+
+	# Search for the pattern id to get Fraud Notification Code 
+	$matches_fds = [regex]::Matches($content, $pattern_fds)
+		
+	# If matches FDS are found, write the file name and the End to End ID to the output file
+	if (($matches_fds.Count -gt 0) -and ($matches_fds.Groups[1].Value -eq "O 70" -or $matches_fds.Groups[1].Value -eq "O 71" -or $matches_fds.Groups[1].Value -eq "O 72" -or $matches_fds.Groups[1].Value -eq "O 73")) {
+			
+		# Search for the pattern id to get Date
+		$matches_date = [regex]::Matches($content, $pattern_date)
+		$date = $matches_date.Groups[1].Value
+		
+		# Search for the pattern id to get End to End ID
+		$fds_code = $matches_fds.Groups[1].Value
+		$matches = [regex]::Matches($content, $pattern_id)
+		$e2e_id = $matches.Groups[1].Value
+		
+		# Search for the pattern id to get Type CT and SC
+		$matches_type = [regex]::Matches($content, $pattern_type)
+		$type = $matches_type.Groups[1].Value
+		
+		# Search for the pattern id to get Benef Name
+		$matches_benef_name1 = [regex]::Matches($content, $pattern_benef_name1)
+		$matches_benef_name2 = [regex]::Matches($matches_benef_name1, $pattern_benef_name2)
+		$benef_name = '"' + $matches_benef_name2.Groups[1].Value + '"'
+			
+		# Search for the pattern id to get Benef Account
+		$matches_benef_acc1 = [regex]::Matches($content, $pattern_benef_acc1)
+		$matches_benef_acc2 = [regex]::Matches($matches_benef_acc1, $pattern_benef_acc2)
+		$matches_benef_acc3 = [regex]::Matches($matches_benef_acc2, $pattern_benef_acc3)
+		$benef_acc = $matches_benef_acc3.Groups[1].Value
+		
+		# Search for the pattern id to get Timestamp
+		$matches_timestamp = [regex]::Matches($content, $pattern_timestamp)
+		$timestamp = $matches_timestamp.Groups[1].Value
+
+        # ---- ENHANCEMENT: Get the hour for the Batch Job column ----
+        $batchJob = ([datetime]$timestamp).Hour
+		
+		If ($type -eq "ACSC") { #SC Response
+			$type_name = "SC Response"
+			
+			# Search for the pattern id to get Sender Bank
+			$matches_sender_bank1 = [regex]::Matches($content, $pattern_sender_bank1)
+			$matches_sender_bank2 = [regex]::Matches($matches_sender_bank1, $pattern_sender_bank2)
+			$sender_bank = $matches_sender_bank2.Groups[1].Value
+			
+			# Search for the pattern id to get Sender Name
+			$matches_sender_name1 = [regex]::Matches($content, $pattern_sender_name1)
+			$matches_sender_name2 = [regex]::Matches($matches_sender_name1, $pattern_sender_name2)
+			$sender_name = '"' + $matches_sender_name2.Groups[1].Value + '"'
+			
+			# Search for the pattern id to get Sender Account
+			$matches_sender_acc1 = [regex]::Matches($content, $pattern_sender_acc1)
+			$matches_sender_acc2 = [regex]::Matches($matches_sender_acc1, $pattern_sender_acc2)
+			$matches_sender_acc3 = [regex]::Matches($matches_sender_acc2, $pattern_sender_acc3)
+			$sender_acc = $matches_sender_acc3.Groups[1].Value
+			
+			# Search for the pattern id to get Benef Bank
+			$matches_benef_bank1 = [regex]::Matches($content, $pattern_benef_bank1)
+			$matches_benef_bank2 = [regex]::Matches($matches_benef_bank1, $pattern_benef_bank2)
+			$benef_bank = $matches_benef_bank2.Groups[1].Value
+					
+			# Outgoing or Incoming
+			if ($sender_bank -eq "BOTKIDJX") {
+				$trx_type = "Outgoing"
+			} else {
+				$trx_type = "Incoming"
+			}	
+			if ($dateString -eq $date) {
+                # ---- ENHANCEMENT: Added $batchJob to the output string ----
+				$Array_ResultSC +="$fds_code,$date,$timestamp,$batchJob,$trx_type,$type_name,$e2e_id,$sender_bank,$sender_name,$sender_acc,$benef_bank,$benef_name,$benef_acc,$($file.FullName)"
+				$Array_ResultSC_e2eid += $e2e_id
+			}
+		} else { #CT Response
+			$type_name = "CT Response"
+			if ($dateString -eq $date) {
+                # ---- ENHANCEMENT: Added $batchJob to the output string ----
+				$Array_ResultCT += "$fds_code,$date,$timestamp,$batchJob,,$type_name,$e2e_id,$sender_bank,$sender_name,$sender_acc,$benef_bank,$benef_name,$benef_acc,$($file.FullName)"
+				$Array_ResultCT_e2eid += $e2e_id
+			}
+		}
+	}
+}
+
+# ----- Housekeeping >> Delete spesific files in the folder based on date -----
+# Define the path to the folder
+$folderPath_result = "C:\FDS\Result\"
+# Calculate the date 60 days ago
+$targetDate = $todaysDate.AddDays(-60)
+# Get all files in the folder
+$files = Get-ChildItem -Path $folderPath_result
+# Loop through each file
+foreach ($file in $files) {
+    # Extract the date part from the filename assuming the format is yyyymmdd
+    if ($file.Name -match "(\d{8})") {
+        $fileDateStr = $matches[0]
+        $fileDate = [datetime]::ParseExact($fileDateStr, "yyyyMMdd", $null)
+		
+        # Check if the file date is older than the target date
+        if ($fileDate -lt $targetDate) {
+            # Delete the file
+            Remove-Item -Path $file.FullName -Force
+        }
+    }
+}
+
+# ----- Write the result to file -----
+#Read array and write to Result file
+$index = -1
+foreach ($itemCT in $Array_ResultCT_e2eid) {
+	$index += 1
+	If ($Array_ResultSC_e2eid -notcontains $itemCT) {
+		$Array_ResultSC += $Array_ResultCT[$index]
+	}
+}
+# Define the output file path
+$itemCount = $Array_ResultSC.Length
+$outputFilePath = $folderPath_result + "FDS_Result_" + $dateStringfile + "_($itemCount).csv"
+# Initialize the output file
+New-Item -Path $outputFilePath -ItemType File -Force
+# ---- ENHANCEMENT: Added "Batch Job" to the header ----
+Add-Content -Path $outputFilePath -Value "No,FDS Code,Date,Timestamp,Batch Job,Transaction Type,Message,Business ID,Sender Bank,Sender Name,Sender Account,Benef Bank,Benef Name,Benef Account,File"
+# Write data to file
+$count = 0
+foreach ($itemSC in $Array_ResultSC) {
+	$count += 1
+	Add-Content -Path $outputFilePath -Value "$count,$itemSC"
+}
+
+# Processing Time - Get Timestamp End
+$timestamp_end = Get-Date
+# Calculate the duration between the two timestamps
+$duration = $timestamp_end - $timestamp_start
+# Convert the duration to total seconds
+$durationInSeconds = $duration.TotalSeconds
+
+# Run the script
+Write-Output "Script execution completed. Check the output file at $outputFilePath. Duration: $durationInSeconds s"
