@@ -1,1 +1,31 @@
-readme
+Critical Questions on RabbitMQ Implementation
+
+1. On Message Failure and Recovery (The "What if a consumer fails?" question):
+
+Question: "The TDD mentions that processes like sending emails to ENS will use RabbitMQ. If the Email Service is down or fails to process a message after receiving it, what happens to that message? Have we configured a Dead-Letter Queue (DLQ) to capture these failed messages for manual inspection and reprocessing, or will the message be lost forever?"
+
+Why it's critical: Without a DLQ strategy, a temporary failure in a downstream service (like ENS) could lead to the permanent loss of critical information, such as a customer's payment receipt. This is a fundamental reliability pattern for message queues.
+
+2. On Message Durability and Persistence (The "What if RabbitMQ itself crashes?" question):
+
+Question: "Are the queues and messages within RabbitMQ configured for durability and persistence? If the RabbitMQ server or cluster has to be restarted, can we guarantee that critical, in-flight messages (like a payment execution instruction) will be recovered, or are they only stored in memory and will be lost?"
+
+Why it's critical: If messages are not persisted to disk, any restart or crash of the message broker will result in data loss. For a financial application, losing a message that represents a payment instruction is a high-severity risk.
+
+3. On Atomic Operations and Data Consistency (The "Database and Message Queue" problem):
+
+Question: "How do we guarantee atomicity between a database transaction and publishing a message? For example, when a payment is successful, we update the transaction status to 'Paid' in the database AND publish a message to RabbitMQ. If the database commit succeeds but the message publish fails, the system is in an inconsistent state. Are we implementing a Transactional Outbox pattern to ensure these two actions are effectively a single, atomic operation?"
+
+Why it's critical: This is a classic and complex problem in microservices. Without a pattern like the Outbox, you cannot guarantee that your system's state remains consistent, which can lead to missed notifications, failed audit logs, or other serious data integrity issues.
+
+4. On Queue Topology and Scalability (The "How is it actually wired?" question):
+
+Question: "What is the specific exchange and queue topology we are using? Are we using simple direct queues for each service, or are we leveraging more flexible patterns like topic or fanout exchanges? For example, could a single 'payment_successful' event be published to a topic exchange and then be consumed independently by the Email Service, the Activity Log Service, and a future reporting service?"
+
+Why it's critical: The topology design directly impacts the system's scalability and maintainability. A poorly designed topology can create tight coupling between services and make it difficult to add new features or consumers in the future without significant rework.
+
+5. On Monitoring and Alerting (The "How do we know it's broken?" question):
+
+Question: "What specific metrics from RabbitMQ are we monitoring in Prometheus/Grafana? Are there alerts configured for critical conditions like high queue depth (i.e., messages backing up faster than they can be processed), a high rate of unacknowledged messages, or broker connection failures? How will the operations team be proactively notified of a problem before it impacts the entire application?"
+
+Why it's critical: RabbitMQ is a core piece of infrastructure. A "slow" or failing message broker can cause cascading failures across all dependent microservices. Proactive monitoring is essential for operational stability.
