@@ -1,0 +1,3287 @@
+{
+	"info": {
+		"_postman_id": "f450e9be-a02d-4356-bfaf-61c234951ef9",
+		"name": "MUFG - PU",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16846394",
+		"_collection_link": "https://solecode-api.postman.co/workspace/Team-Workspace~12bf1068-0503-48f0-8658-c0b22182337b/collection/23207702-f450e9be-a02d-4356-bfaf-61c234951ef9?action=share&source=collection_link&creator=16846394"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"access_token\", jsonData.data.userToken);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kong_access_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "ApiKey",
+								"value": "39276c09-7df3-4156-bbd1-f12430e542fb",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"paymentMaker\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kongUrl}}/user/auth/login",
+							"host": [
+								"{{kongUrl}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kong_access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "ApiKey",
+										"value": "39276c09-7df3-4156-bbd1-f12430e542fb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"drespati\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/user/auth/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"status\": \"Success\",\n  \"message\": \"Login successful\",\n  \"data\": {\n    \"userToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRyZXNwYXRpIiwicm9sZXMiOlsiYWRtaW5pc3RyYXRvciJdLCJhaXRob3JpemF0aW9ucyI6WyJhdXRob3JpemF0aW9uMSIsImF1dGhvcml6YXRpb24yIl0sImVtYWlsIjoiZGV3YW5nZ2EucmVzcGF0aUBnbWFpbC5jb20iLCJmdWxsbmFtZSI6IkRld2FuZ2dhIFJlc3BhdGkiLCJuYmYiOjE2NTMzNTE4MDksImV4cCI6MTY1Mzk1NjYwOSwiaWF0IjoxNjUzMzUxODA5fQ.ymPjgdqHnIhq5bhwBGuqgsIUWWu4XLXZPyL2OFNXuKA\"\n  }\n}"
+						},
+						{
+							"name": "Not Found User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kong_access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "ApiKey",
+										"value": "39276c09-7df3-4156-bbd1-f12430e542fb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"drespati\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/user/auth/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"code\": 404,\n  \"status\": \"Failed\",\n  \"message\": \"User Not Found\",\n  \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Current Permission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kong_access_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "ApiKey",
+								"value": "39276c09-7df3-4156-bbd1-f12430e542fb",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "user-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{kongUrl}}/user/auth/current",
+							"host": [
+								"{{kongUrl}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								"current"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kong_access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "ApiKey",
+										"value": "39276c09-7df3-4156-bbd1-f12430e542fb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/ens/user/auth/current",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"ens",
+										"user",
+										"auth",
+										"current"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"status\": \"Success\",\n  \"data\": [\n    {\n      \"menu\": {\n        \"key\": \"TASK_LIST\",\n        \"name\": \"Task List\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"EMAIL_TEMPLATE\",\n        \"name\": \"Email Template\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"EMAIL_MONITORING\",\n        \"name\": \"Email Menitoring\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"EMAIL_SCHEDULING\",\n        \"name\": \"Email Scheduling\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"ATTACHMENT_TEMPLATE\",\n        \"name\": \"Attachment Template\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"SYSTEM_VARIABLE\",\n        \"name\": \"System Variable\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"DATABASE_VARIABLE\",\n        \"name\": \"Database Variable\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"SMTP_CONFIGURATION\",\n        \"name\": \"SMTP Configuration\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"ACTIVE_DIRECTORY\",\n        \"name\": \"Active Directory\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"ROLES\",\n        \"name\": \"Role\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"ACCESS_CONTROL\",\n        \"name\": \"Access Control\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"USER_ROLES\",\n        \"name\": \"User Role\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    },\n    {\n      \"menu\": {\n        \"key\": \"ACTIVITY_LOGS\",\n        \"name\": \"Activity Logs\"\n      },\n      \"isView\": true,\n      \"isCreate\": true,\n      \"isEdit\": true,\n      \"isDelete\": true\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/Product?Status=Approved&ModifiedDate1=2025-06-09&ModifiedDate2=2025-06-10",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"Product"
+							],
+							"query": [
+								{
+									"key": "ProductName",
+									"value": "PLN",
+									"disabled": true
+								},
+								{
+									"key": "ProductCategory",
+									"value": "m",
+									"disabled": true
+								},
+								{
+									"key": "ProductCode",
+									"value": "2411112",
+									"disabled": true
+								},
+								{
+									"key": "Status",
+									"value": "Approved"
+								},
+								{
+									"key": "ModifiedDate1",
+									"value": "2025-06-09"
+								},
+								{
+									"key": "ModifiedDate2",
+									"value": "2025-06-10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Payment",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/Product?ProductName=PLN&ProductCategory=Multifinance&ProductCode=2411112&Page=1&Size=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product"
+									],
+									"query": [
+										{
+											"key": "ProductName",
+											"value": "PLN"
+										},
+										{
+											"key": "ProductCategory",
+											"value": "Multifinance"
+										},
+										{
+											"key": "ProductCode",
+											"value": "2411112"
+										},
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "Size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"Items\": [\n            {\n                \"id\": 6,\n                \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n                \"productName\": \"Mandala Finance\",\n                \"productCategory\": \"Multifinance\",\n                \"productCode\": \"2411111\",\n                \"additionalInformation\": \"MF003\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 5,\n                \"bankAdmin\": 5000,\n                \"status\": \"Approved\",\n                \"version\": 2,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"\",\n                \"defaultStartDebitDate\": null,\n                \"defaultDueDate\": null,\n                \"settlementAccountNumber\": \"\",\n                \"settlementAccountName\": \"\",\n                \"description\": \"\",\n                \"previousData\": {\n                    \"id\": 5,\n                    \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n                    \"productName\": \"Mandala Finance\",\n                    \"productCategory\": \"Multifinance\",\n                    \"productCode\": \"2411111\",\n                    \"additionalInformation\": \"MF003\",\n                    \"dueDateType\": \"Non Personal\",\n                    \"xWorkingDay\": 5,\n                    \"bankAdmin\": 5000,\n                    \"status\": \"Approved\",\n                    \"version\": 1,\n                    \"modifiedDate\": null,\n                    \"standingOrderBillingIdentifierName\": \"\",\n                    \"defaultStartDebitDate\": null,\n                    \"defaultDueDate\": null,\n                    \"settlementAccountNumber\": \"\",\n                    \"settlementAccountName\": \"\",\n                    \"description\": \"\",\n                    \"previousData\": null\n                }\n            },\n            {\n                \"id\": 7,\n                \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc631\",\n                \"productName\": \"PLN\",\n                \"productCategory\": \"Multifinance\",\n                \"productCode\": \"2411112\",\n                \"additionalInformation\": \"MF004\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 5,\n                \"bankAdmin\": 5000,\n                \"status\": \"Approved\",\n                \"version\": 2,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"\",\n                \"defaultStartDebitDate\": null,\n                \"defaultDueDate\": null,\n                \"settlementAccountNumber\": \"\",\n                \"settlementAccountName\": \"\",\n                \"description\": \"\",\n                \"previousData\": null\n            }\n        ],\n        \"totalItems\": 3\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/categories",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/Product?ProductName=PLN&ProductCategory=Multifinance&ProductCode=2411112&Page=1&Size=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product"
+									],
+									"query": [
+										{
+											"key": "ProductName",
+											"value": "PLN"
+										},
+										{
+											"key": "ProductCategory",
+											"value": "Multifinance"
+										},
+										{
+											"key": "ProductCode",
+											"value": "2411112"
+										},
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "Size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": [\n        {\n            \"categoryCode\": \"xxx\",\n            \"categoryDescription\": \"xxx\"\n        },\n        {\n            \"categoryCode\": \"xxx\",\n            \"categoryDescription\": \"xxx\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Product Log",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/product/:id/logs",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								":id",
+								"logs"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product Log",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id/logs",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id",
+										"logs"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": [\n        {\n            \"userName\": \"xxx\",\n            \"date\": \"2025-01-01T20:20:12\",\n            \"activity\":\"Add Document\",\n            \"notes\":\"-\"\n        },\n        {\n            \"userName\": \"xxx\",\n            \"date\": \"2025-01-01T20:20:12\",\n            \"activity\":\"Update Document\",\n            \"notes\":\"-\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Account Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/product/check-account-number/:accountNumber?ens=true",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								"check-account-number",
+								":accountNumber"
+							],
+							"query": [
+								{
+									"key": "ens",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "accountNumber",
+									"value": "123-23-45-4000000004"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Check Account Number Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{productUrlLocal}}/product/check-account-number/:accountNumber",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										"check-account-number",
+										":accountNumber"
+									],
+									"variable": [
+										{
+											"key": "accountNumber",
+											"value": "12-22-3-22"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"status\": \"Active\",\n        \"accountName\": \"MUFG Account\",\n        \"cifNumber\": \"2319230129\"\n    }\n}"
+						},
+						{
+							"name": "Check Account Number",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{productUrlLocal}}/product/check-account-number/:accountNumber?ens=true",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										"check-account-number",
+										":accountNumber"
+									],
+									"query": [
+										{
+											"key": "ens",
+											"value": "true"
+										}
+									],
+									"variable": [
+										{
+											"key": "accountNumber",
+											"value": "123-23-45-400000000432"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\n    \"code\": 404,\n    \"status\": \"NotFound\",\n    \"message\": \"Account not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"product_id\", jsonData.data.id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\": \"Product Name\",\r\n    \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\r\n    \"productCode\": \"Proc214\",\r\n    \"additionalInformation\": \"Additional Information\",\r\n    \"billingId\": \"Nil10012\",\r\n    \"dueDateType\": \"Non Personal\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\",\r\n    \"notes\":\"notes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{productUrlLocal}}/product",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Product Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8009/Product",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": \"Data has been inserted\"\n}"
+						},
+						{
+							"name": "Add Product Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8009/Product",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 400,\n    \"status\": \"Failed\",\n    \"message\": \"Data validation\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Approve Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"notes\":\"Approved the request\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{productUrlLocal}}/product/:id/approved",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								":id",
+								"approved"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rejected Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"notes\":\"Rejected the request\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{productUrlLocal}}/product/:id/rejected",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								":id",
+								"rejected"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"product_id\", jsonData.data.id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\": \"Product Name\",\r\n    \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\r\n    \"productCode\": \"Proc213\",\r\n    \"additionalInformation\": \"Additional Information\",\r\n    \"billingId\": \"Nil10012\",\r\n    \"dueDateType\": \"Non Personal\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\",\r\n    \"notes\": \"notes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{productUrlLocal}}/product/:id",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Product Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": \"Data has been updated\"\n}"
+						},
+						{
+							"name": "Update Product Error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 400,\n    \"status\": \"Failed\",\n    \"message\": \"Can't update data because approval is pending.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Product By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/product/:id",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product By ID Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategory\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"data\": {\n        \"id\": 6,\n        \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n        \"productName\": \"Mandala Finance\",\n        \"productCategory\": \"Multifinance\",\n        \"productCode\": \"2411111\",\n        \"additionalInformation\": \"MF003\",\n        \"dueDateType\": \"Non Personal\",\n        \"xWorkingDay\": 5,\n        \"bankAdmin\": 5000,\n        \"status\": \"Approved\",\n        \"version\": 2,\n        \"modifiedDate\": null,\n        \"standingOrderBillingIdentifierName\": \"\",\n        \"defaultStartDebitDate\": null,\n        \"defaultDueDate\": null,\n        \"settlementAccountNumber\": \"\",\n        \"settlementAccountName\": \"\",\n        \"description\": \"\",\n        \"previousData\": {\n            \"id\": 5,\n            \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n            \"productName\": \"Mandala Finance\",\n            \"productCategory\": \"Multifinance\",\n            \"productCode\": \"2411111\",\n            \"additionalInformation\": \"MF003\",\n            \"dueDateType\": \"Non Personal\",\n            \"xWorkingDay\": 5,\n            \"bankAdmin\": 5000,\n            \"status\": \"Approved\",\n            \"version\": 1,\n            \"modifiedDate\": null,\n            \"standingOrderBillingIdentifierName\": \"\",\n            \"defaultStartDebitDate\": null,\n            \"defaultDueDate\": null,\n            \"settlementAccountNumber\": \"\",\n            \"settlementAccountName\": \"\",\n            \"description\": \"\",\n            \"previousData\": null\n        }\n    }\n}"
+						},
+						{
+							"name": "Get Product By ID Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategory\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 500,\n    \"status\": \"Failed\",\n    \"message\": \"Internal Server Error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzUwMDU4MzUwLCJleHAiOjE3NTAwNjAxNTB9.7t3eravLnAcDGgnCQ96T6jMk1k9YtolElzocm13TV0o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/Product/:id",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"Product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "49"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Payment",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/Product/:id",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:25:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Task List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/TaskList/Product?ProductCategory=Telkom%2FIndihome",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"TaskList",
+								"Product"
+							],
+							"query": [
+								{
+									"key": "ProductCategory",
+									"value": "Telkom%2FIndihome"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Task List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/TaskList/Product?ProductCategory=Telkom%2FIndihome",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"TaskList",
+										"Product"
+									],
+									"query": [
+										{
+											"key": "ProductCategory",
+											"value": "Telkom%2FIndihome"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Jun 2025 12:21:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"Items\": [\n            {\n                \"id\": 36,\n                \"uuid\": \"fabef1c2-4096-4982-8164-51279ba8d8df\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"PR-02\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Ni10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 35,\n                \"uuid\": \"1c30809f-9d5b-4d00-a955-92a47a9cd15f\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"PR-01\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Ni10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 30,\n                \"uuid\": \"2a9ecbda-4757-4ee6-9feb-f173694d5468\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"XXo123\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 55,\n                \"uuid\": \"3aa9946f-1da2-40d8-a669-617c617b2317\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"Proc2215\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 24,\n                \"uuid\": \"4b9e1ee8-2c32-465c-8d13-6d5f12ddf9cc\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"Proc213\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 5,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": {\n                    \"id\": 23,\n                    \"uuid\": \"4b9e1ee8-2c32-465c-8d13-6d5f12ddf9cc\",\n                    \"productName\": \"Product Name\",\n                    \"productCategory\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                    \"productCategoryId\": \"00000000-0000-0000-0000-000000000000\",\n                    \"productCode\": \"Proc213\",\n                    \"additionalInformation\": \"Additional Information\",\n                    \"dueDateType\": \"Non Personal\",\n                    \"xWorkingDay\": 2,\n                    \"bankAdmin\": 2000,\n                    \"adminSyb\": null,\n                    \"status\": \"Rejected\",\n                    \"modifiedBy\": null,\n                    \"version\": 4,\n                    \"modifiedDate\": \"2025-06-13T06:46:27.632102Z\",\n                    \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                    \"defaultStartDebitDate\": 10,\n                    \"defaultDueDate\": 12,\n                    \"settlementAccountNumber\": \"xxxxx\",\n                    \"settlementAccountName\": \"name\",\n                    \"description\": \"description\",\n                    \"previousData\": null\n                }\n            },\n            {\n                \"id\": 54,\n                \"uuid\": \"5884e7de-ce37-43c1-839b-8574e7f5c271\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"Proc2214\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 5,\n                \"uuid\": \"6fcac0f2-244b-4b92-b1f2-2c5eb1b34dd3\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"XXo2\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 19,\n                \"uuid\": \"7c36d65d-0572-45b2-b077-4493efc1bf34\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"Proc23\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 26,\n                \"uuid\": \"7d12ffc8-06ad-4ce6-b74c-7094347dc81c\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"Proc214\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            },\n            {\n                \"id\": 34,\n                \"uuid\": \"9e66a62f-fd7c-4643-889a-a806bc15dd26\",\n                \"productName\": \"Product Name\",\n                \"productCategory\": \"Telkom/Indihome\",\n                \"productCategoryId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n                \"productCode\": \"vXXo1aaa3\",\n                \"additionalInformation\": \"Additional Information\",\n                \"dueDateType\": \"Non Personal\",\n                \"xWorkingDay\": 2,\n                \"bankAdmin\": 2000,\n                \"adminSyb\": null,\n                \"status\": \"PendingApproval\",\n                \"modifiedBy\": null,\n                \"version\": 1,\n                \"modifiedDate\": null,\n                \"standingOrderBillingIdentifierName\": \"Nil10012\",\n                \"defaultStartDebitDate\": 10,\n                \"defaultDueDate\": 12,\n                \"settlementAccountNumber\": \"xxxxx\",\n                \"settlementAccountName\": \"name\",\n                \"description\": \"description\",\n                \"previousData\": null\n            }\n        ],\n        \"totalItems\": 18\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "StandingOrder",
+			"item": [
+				{
+					"name": "Get Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/categories",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/Product?ProductName=PLN&ProductCategory=Multifinance&ProductCode=2411112&Page=1&Size=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product"
+									],
+									"query": [
+										{
+											"key": "ProductName",
+											"value": "PLN"
+										},
+										{
+											"key": "ProductCategory",
+											"value": "Multifinance"
+										},
+										{
+											"key": "ProductCode",
+											"value": "2411112"
+										},
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "Size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": [\n        {\n            \"categoryCode\": \"xxx\",\n            \"categoryDescription\": \"xxx\"\n        },\n        {\n            \"categoryCode\": \"xxx\",\n            \"categoryDescription\": \"xxx\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Product Log",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/product/:id/logs",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								":id",
+								"logs"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product Log",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id/logs",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id",
+										"logs"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": [\n        {\n            \"userName\": \"xxx\",\n            \"date\": \"2025-01-01T20:20:12\",\n            \"activity\":\"Add Document\",\n            \"notes\":\"-\"\n        },\n        {\n            \"userName\": \"xxx\",\n            \"date\": \"2025-01-01T20:20:12\",\n            \"activity\":\"Update Document\",\n            \"notes\":\"-\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Account Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productUrlLocal}}/product/check-account-number/:accountNumber",
+							"host": [
+								"{{productUrlLocal}}"
+							],
+							"path": [
+								"product",
+								"check-account-number",
+								":accountNumber"
+							],
+							"variable": [
+								{
+									"key": "accountNumber",
+									"value": "123-23-45-6"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Check Account Number Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{productUrlLocal}}/product/check-account-number/:accountNumber",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										"check-account-number",
+										":accountNumber"
+									],
+									"variable": [
+										{
+											"key": "accountNumber",
+											"value": "12-22-3-22"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"status\": \"Active\",\n        \"accountName\": \"MUFG Account\",\n        \"cifNumber\": \"2319230129\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Standing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"standing_order_id\", jsonData.data[0].id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"applicationStatus\": \"New\",\r\n    \"startFrom\": \"01-07-2022\",\r\n    \"categoryId\": \"50304501-add3-439d-af60-e8c3335f13a4\",\r\n    \"categoryName\": \"TV Cable & Internet\",\r\n    \"productId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\r\n    \"productCode\": \"XXo9\",\r\n    \"productName\": \"Product Name\",\r\n    \"productVersion\": \"2\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\": \"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"notes\":\"-\",\r\n    \"cifNumberDebit\": \"CIF123456\",\r\n    \"customers\": [\r\n        {\r\n            \"billingId\": \"Ni10012\",\r\n            \"customerName\": \"Yusuf\"\r\n        },\r\n        {\r\n            \"billingId\": \"Ni10013\",\r\n            \"customerName\": \"reyhan\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Standing Order Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"applicationStatus\": \"New\",\r\n    \"startForm\": \"01-07-2022\",\r\n    \"categoryId\": \"50304501-add3-439d-af60-e8c3335f13a4\",\r\n    \"categoryName\": \"TV Cable & Internet\",\r\n    \"productId\":\"387a8e62-c07d-46d7-a543-ecf007678c33\",\r\n    \"productCode\":\"XXo9\",\r\n    \"productName\": \"Product Name\",\r\n    \"productVersion\":\"2\",\r\n    \"billingId\": \"Ni10012\",\r\n    \"customerName\":\"Yusuf\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\":\"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"cifNumberDebit\" : \"CIF123456\",\r\n    \"customers\":[\r\n      {\r\n        \"billingId\":\"Ni10012\",\r\n        \"customerName\":\"Yusuf\"\r\n      },\r\n      {\r\n        \"billingId\":\"Ni10013\",\r\n        \"customerName\":\"reyhan\"\r\n      }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:9009/StandingOrder/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "9009",
+									"path": [
+										"StandingOrder",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"status\": \"Success\",\n  \"message\": \"Data has been inserted\",\n  \"data\": [\n    {\n      \"id\": 23,\n      \"billingId\": \"Ni10012\",\n      \"standingOrderId\": 12,\n      \"accountNumberDebit\": \"123-23-45-6\",\n      \"accountNameDebit\": \"Yusuf Account Name\",\n      \"cifNumberDebit\": \"CIF123456\",\n      \"accountNumberCharge\": \"123-23-45-6\",\n      \"accountNameCharge\": \"Yusuf Account Name\",\n      \"cifNumberCharge\": \"CIF123456\",\n      \"categoryId\": \"50304501-add3-439d-af60-e8c3335f13a4\",\n      \"categoryName\": \"TV Cable & Internet\",\n      \"productId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n      \"productCode\": \"XXo9\",\n      \"productName\": \"Product Name\",\n      \"startDebitDate\": 10,\n      \"dueDate\": 12,\n      \"xWorkingDay\": 0,\n      \"adminFee\": 0,\n      \"creationCharge\": 0,\n      \"applicationStatus\": \"New\",\n      \"approvalStatus\": \"PendingApproval\",\n      \"version\": 1,\n      \"startFrom\": null,\n      \"modifiedBy\": null,\n      \"modifiedDate\": null,\n      \"previousData\": null\n    },\n    {\n      \"id\": 24,\n      \"billingId\": \"Ni10013\",\n      \"standingOrderId\": 12,\n      \"accountNumberDebit\": \"123-23-45-6\",\n      \"accountNameDebit\": \"Yusuf Account Name\",\n      \"cifNumberDebit\": \"CIF123456\",\n      \"accountNumberCharge\": \"123-23-45-6\",\n      \"accountNameCharge\": \"Yusuf Account Name\",\n      \"cifNumberCharge\": \"CIF123456\",\n      \"categoryId\": \"50304501-add3-439d-af60-e8c3335f13a4\",\n      \"categoryName\": \"TV Cable & Internet\",\n      \"productId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\n      \"productCode\": \"XXo9\",\n      \"productName\": \"Product Name\",\n      \"startDebitDate\": 10,\n      \"dueDate\": 12,\n      \"xWorkingDay\": 0,\n      \"adminFee\": 0,\n      \"creationCharge\": 0,\n      \"applicationStatus\": \"New\",\n      \"approvalStatus\": \"PendingApproval\",\n      \"version\": 1,\n      \"startFrom\": null,\n      \"modifiedBy\": null,\n      \"modifiedDate\": null,\n      \"previousData\": null\n    }\n  ]\n}"
+						},
+						{
+							"name": "Add Standing Order Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:9009/StandingOrder/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "9009",
+									"path": [
+										"StandingOrder",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 400,\n    \"status\": \"Failed\",\n    \"message\": \"Data validation\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Approve Standing Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"notes\":\"Approved the request\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id/approved",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id",
+								"approved"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rejected Standing Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"notes\":\"Rejected the request\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id/rejected",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id",
+								"rejected"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Amend Standing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"standing_order_id\", jsonData.data[0].id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startForm\": \"01-07-2022\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": null,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\": \"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name2\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name2\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"notes\": \"-\",\r\n    \"cifNumberDebit\": \"CIF123456\",\r\n    \"applicationStatus\":\"amend\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Product Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+									"host": [
+										"{{paymentUrlLocal}}"
+									],
+									"path": [
+										"StandingOrder",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": \"Data has been Updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Revise Standing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"standing_order_id\", jsonData.data[0].id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzUwMjE4OTgzLCJleHAiOjE3NTAyMjA3ODN9.k0XmhIZQbVLmvpdJt-uG_YgYYXES52FVzhgLWfeDhZI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startForm\": \"01-07-2022\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": 12,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\": \"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name2\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name2\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"notes\": \"-\",\r\n    \"cifNumberDebit\": \"CIF123456\",\r\n    \"applicationStatus\":\"new\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Product Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+									"host": [
+										"{{paymentUrlLocal}}"
+									],
+									"path": [
+										"StandingOrder",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": \"Data has been Updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Terminate Standing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"standing_order_id\", jsonData.data[0].id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzUwMjE4OTgzLCJleHAiOjE3NTAyMjA3ODN9.k0XmhIZQbVLmvpdJt-uG_YgYYXES52FVzhgLWfeDhZI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startForm\": \"01-07-2022\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": 12,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\": \"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name2\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name2\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"notes\": \"-\",\r\n    \"cifNumberDebit\": \"CIF123456\",\r\n    \"applicationStatus\":\"terminate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Product Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategoryId\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+									"host": [
+										"{{paymentUrlLocal}}"
+									],
+									"path": [
+										"StandingOrder",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": \"Data has been Updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Standing Order By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product By ID Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategory\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"data\": {\n        \"id\": 6,\n        \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n        \"productName\": \"Mandala Finance\",\n        \"productCategory\": \"Multifinance\",\n        \"productCode\": \"2411111\",\n        \"additionalInformation\": \"MF003\",\n        \"dueDateType\": \"Non Personal\",\n        \"xWorkingDay\": 5,\n        \"bankAdmin\": 5000,\n        \"status\": \"Approved\",\n        \"version\": 2,\n        \"modifiedDate\": null,\n        \"standingOrderBillingIdentifierName\": \"\",\n        \"defaultStartDebitDate\": null,\n        \"defaultDueDate\": null,\n        \"settlementAccountNumber\": \"\",\n        \"settlementAccountName\": \"\",\n        \"description\": \"\",\n        \"previousData\": {\n            \"id\": 5,\n            \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n            \"productName\": \"Mandala Finance\",\n            \"productCategory\": \"Multifinance\",\n            \"productCode\": \"2411111\",\n            \"additionalInformation\": \"MF003\",\n            \"dueDateType\": \"Non Personal\",\n            \"xWorkingDay\": 5,\n            \"bankAdmin\": 5000,\n            \"status\": \"Approved\",\n            \"version\": 1,\n            \"modifiedDate\": null,\n            \"standingOrderBillingIdentifierName\": \"\",\n            \"defaultStartDebitDate\": null,\n            \"defaultDueDate\": null,\n            \"settlementAccountNumber\": \"\",\n            \"settlementAccountName\": \"\",\n            \"description\": \"\",\n            \"previousData\": null\n        }\n    }\n}"
+						},
+						{
+							"name": "Get Product By ID Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategory\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 500,\n    \"status\": \"Failed\",\n    \"message\": \"Internal Server Error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Log Standing Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id/logs",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id",
+								"logs"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{standing_order_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product By ID Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategory\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"data\": {\n        \"id\": 6,\n        \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n        \"productName\": \"Mandala Finance\",\n        \"productCategory\": \"Multifinance\",\n        \"productCode\": \"2411111\",\n        \"additionalInformation\": \"MF003\",\n        \"dueDateType\": \"Non Personal\",\n        \"xWorkingDay\": 5,\n        \"bankAdmin\": 5000,\n        \"status\": \"Approved\",\n        \"version\": 2,\n        \"modifiedDate\": null,\n        \"standingOrderBillingIdentifierName\": \"\",\n        \"defaultStartDebitDate\": null,\n        \"defaultDueDate\": null,\n        \"settlementAccountNumber\": \"\",\n        \"settlementAccountName\": \"\",\n        \"description\": \"\",\n        \"previousData\": {\n            \"id\": 5,\n            \"uuid\": \"fd248351-4716-45c5-b17d-b8fcd09fc630\",\n            \"productName\": \"Mandala Finance\",\n            \"productCategory\": \"Multifinance\",\n            \"productCode\": \"2411111\",\n            \"additionalInformation\": \"MF003\",\n            \"dueDateType\": \"Non Personal\",\n            \"xWorkingDay\": 5,\n            \"bankAdmin\": 5000,\n            \"status\": \"Approved\",\n            \"version\": 1,\n            \"modifiedDate\": null,\n            \"standingOrderBillingIdentifierName\": \"\",\n            \"defaultStartDebitDate\": null,\n            \"defaultDueDate\": null,\n            \"settlementAccountNumber\": \"\",\n            \"settlementAccountName\": \"\",\n            \"description\": \"\",\n            \"previousData\": null\n        }\n    }\n}"
+						},
+						{
+							"name": "Get Product By ID Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\": \"\",\r\n    \"productCategory\": \"\",\r\n    \"productCode\": \"\",\r\n    \"additionalInformation\": \"\",\r\n    \"billingId\": \"\",\r\n    \"dueDateType\": \"\",\r\n    \"startDebitDate\": 10,\r\n    \"defaultDueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"bankAdmin\": 2000,\r\n    \"settlementAccountNumber\": \"xxxxx\",\r\n    \"settlementAccountName\": \"name\",\r\n    \"description\": \"description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{productUrlLocal}}/product/:id",
+									"host": [
+										"{{productUrlLocal}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:20:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 500,\n    \"status\": \"Failed\",\n    \"message\": \"Internal Server Error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Standing Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzUwMDU4MzUwLCJleHAiOjE3NTAwNjAxNTB9.7t3eravLnAcDGgnCQ96T6jMk1k9YtolElzocm13TV0o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{paymentUrlLocal}}/StandingOrder/:id",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"StandingOrder",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "49"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Payment",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/Product/:id",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jun 2025 03:25:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Standing Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9009/StandingOrder?BillingId=132&StandingOrderId=19&AccountNumberDebit=1111-111-111-1111111",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9009",
+							"path": [
+								"StandingOrder"
+							],
+							"query": [
+								{
+									"key": "BillingId",
+									"value": "132"
+								},
+								{
+									"key": "StandingOrderId",
+									"value": "19"
+								},
+								{
+									"key": "AccountNumberDebit",
+									"value": "1111-111-111-1111111"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Standing Order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:9009/StandingOrder?BillingId=132&StandingOrderId=19&AccountNumberDebit=1111-111-111-1111111",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "9009",
+									"path": [
+										"StandingOrder"
+									],
+									"query": [
+										{
+											"key": "BillingId",
+											"value": "132"
+										},
+										{
+											"key": "StandingOrderId",
+											"value": "19"
+										},
+										{
+											"key": "AccountNumberDebit",
+											"value": "1111-111-111-1111111"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Jun 2025 02:23:05 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"Items\": [\n            {\n                \"id\": 41,\n                \"billingId\": \"1321323\",\n                \"standingOrderId\": 20,\n                \"accountNumberDebit\": \"1111-111-111-1111111\",\n                \"accountNameDebit\": \"MUFG Account\",\n                \"cifNumberDebit\": \"2319230129\",\n                \"accountNumberCharge\": \"1222-222-222-2111111\",\n                \"accountNameCharge\": \"MUFG Account\",\n                \"cifNumberCharge\": \"2319230129\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"MNC Vision\",\n                \"startDebitDate\": 20,\n                \"dueDate\": 25,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 7,\n                \"billingId\": \"Ni10012\",\n                \"standingOrderId\": 2,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 8,\n                \"billingId\": \"Ni10012\",\n                \"standingOrderId\": 3,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 9,\n                \"billingId\": \"Ni10013\",\n                \"standingOrderId\": 4,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 10,\n                \"billingId\": \"Ni10013\",\n                \"standingOrderId\": 5,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 12,\n                \"billingId\": \"Ni10013\",\n                \"standingOrderId\": 6,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 14,\n                \"billingId\": \"Ni10013\",\n                \"standingOrderId\": 7,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 15,\n                \"billingId\": \"Ni10012\",\n                \"standingOrderId\": 8,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 17,\n                \"billingId\": \"Ni10012\",\n                \"standingOrderId\": 9,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            },\n            {\n                \"id\": 19,\n                \"billingId\": \"Ni10012\",\n                \"standingOrderId\": 10,\n                \"accountNumberDebit\": \"123-23-45-6\",\n                \"accountNameDebit\": \"Yusuf Account Name\",\n                \"cifNumberDebit\": \"CIF123456\",\n                \"accountNumberCharge\": \"123-23-45-6\",\n                \"accountNameCharge\": \"Yusuf Account Name\",\n                \"cifNumberCharge\": \"CIF123456\",\n                \"categoryId\": null,\n                \"categoryName\": \"TV Cable & Internet\",\n                \"productId\": null,\n                \"productCode\": null,\n                \"productName\": \"Product Name\",\n                \"startDebitDate\": 10,\n                \"dueDate\": 12,\n                \"xWorkingDay\": 0,\n                \"adminFee\": 0,\n                \"creationCharge\": 0,\n                \"applicationStatus\": \"New\",\n                \"approvalStatus\": \"PendingApproval\",\n                \"version\": 1,\n                \"startFrom\": null,\n                \"modifiedBy\": null,\n                \"modifiedDate\": null,\n                \"previousData\": null\n            }\n        ],\n        \"totalItems\": 20\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Standing Order Tasklist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paymentUrlLocal}}/TaskList/StandingOrder?AccountNameDebit=Yusuf&ApplicationStatus=amend",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"TaskList",
+								"StandingOrder"
+							],
+							"query": [
+								{
+									"key": "AccountNameDebit",
+									"value": "Yusuf"
+								},
+								{
+									"key": "ApplicationStatus",
+									"value": "amend"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Standing Order Tasklist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{paymentUrlLocal}}/TaskList/StandingOrder?AccountNameDebit=Yusuf&ApplicationStatus=amend",
+									"host": [
+										"{{paymentUrlLocal}}"
+									],
+									"path": [
+										"TaskList",
+										"StandingOrder"
+									],
+									"query": [
+										{
+											"key": "AccountNameDebit",
+											"value": "Yusuf"
+										},
+										{
+											"key": "ApplicationStatus",
+											"value": "amend"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Activity Log",
+			"item": [
+				{
+					"name": "Create Activity Log",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzQ5ODA0NTQzLCJleHAiOjE3NDk4MDYzNDN9.tJrlTsttnHmp-lmQU-jkkb8GW38cg2ohIT5Bq72YkiU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"activityLogName\": \"string\",\r\n  \"activityLogGroup\": \"string\",\r\n  \"activityLogUser\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{activityUrl}}/ActivityLog",
+							"host": [
+								"{{activityUrl}}"
+							],
+							"path": [
+								"ActivityLog"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Charge",
+			"item": [
+				{
+					"name": "Get List Charge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{chargeBaseUrl}}/Charge",
+							"host": [
+								"{{chargeBaseUrl}}"
+							],
+							"path": [
+								"Charge"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get List Charge",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8009/Charge",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8009",
+									"path": [
+										"Charge"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 16 Jun 2025 04:13:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"Items\": [\n            {\n                \"id\": 2,\n                \"chargeUuid\": \"1234\",\n                \"approvalStatus\": \"Approved\",\n                \"version\": 2,\n                \"chargeKey\": \"Tagihan 1\",\n                \"dataType\": \"Integer\",\n                \"chargeValue\": 100000,\n                \"chargeGroup\": \"Payment\",\n                \"description\": \"-\",\n                \"modifiedDate\": null,\n                \"previousData\": {\n                    \"id\": 1,\n                    \"chargeUuid\": \"1234\",\n                    \"approvalStatus\": \"Approved\",\n                    \"version\": 1,\n                    \"chargeKey\": \"Tagihan 1\",\n                    \"dataType\": \"Integer\",\n                    \"chargeValue\": 100000,\n                    \"chargeGroup\": \"Payment\",\n                    \"description\": \"-\",\n                    \"modifiedDate\": null,\n                    \"previousData\": null\n                }\n            },\n            {\n                \"id\": 4,\n                \"chargeUuid\": \"12345\",\n                \"approvalStatus\": \"Approved\",\n                \"version\": 2,\n                \"chargeKey\": \"Tagihan 2\",\n                \"dataType\": \"Integer\",\n                \"chargeValue\": 300000,\n                \"chargeGroup\": \"Payment\",\n                \"description\": \"-\",\n                \"modifiedDate\": null,\n                \"previousData\": {\n                    \"id\": 3,\n                    \"chargeUuid\": \"12345\",\n                    \"approvalStatus\": \"Rejected\",\n                    \"version\": 1,\n                    \"chargeKey\": \"Tagihan 2\",\n                    \"dataType\": \"Integer\",\n                    \"chargeValue\": 300000,\n                    \"chargeGroup\": \"Payment\",\n                    \"description\": \"-\",\n                    \"modifiedDate\": null,\n                    \"previousData\": null\n                }\n            }\n        ],\n        \"totalItems\": 2\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Charge By  Key",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9009/charge/key/CREATION_CHARGE",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9009",
+							"path": [
+								"charge",
+								"key",
+								"CREATION_CHARGE"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Charge By  Key",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:9009/charge/key/CREATION_CHARGE",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "9009",
+									"path": [
+										"charge",
+										"key",
+										"CREATION_CHARGE"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": null,\n    \"data\": {\n        \"id\": 10,\n        \"chargeUuid\": \"73c57182-5a6e-4a1a-9d8e-a78f1bd09e93\",\n        \"approvalStatus\": \"Approved\",\n        \"version\": 1,\n        \"chargeKey\": \"CREATION_CHARGE\",\n        \"dataType\": \"Integer\",\n        \"chargeValue\": \"1000\",\n        \"chargeGroup\": \"Payment\",\n        \"description\": \"Creation Charge for Payment\",\n        \"modifiedDate\": null,\n        \"previousData\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Charge",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8009/Charge/:id",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8009",
+							"path": [
+								"Charge",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "External",
+			"item": [
+				{
+					"name": "Check SYB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response Status 200\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"standing_order_id\", jsonData.data[0].id);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzUwMjE4OTgzLCJleHAiOjE3NTAyMjA3ODN9.k0XmhIZQbVLmvpdJt-uG_YgYYXES52FVzhgLWfeDhZI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"applicationStatus\": \"New\",\r\n    \"startForm\": \"01-07-2022\",\r\n    \"categoryId\": \"50304501-add3-439d-af60-e8c3335f13a4\",\r\n    \"categoryName\": \"TV Cable & Internet\",\r\n    \"productId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\r\n    \"productCode\": \"232333\",\r\n    \"productName\": \"Product Name\",\r\n    \"productVersion\": \"2\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\": \"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"notes\": \"-\",\r\n    \"cifNumberDebit\": \"CIF123456\",\r\n    \"billingId\": \"111111\",\r\n    \"customerName\": \"12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentUrlLocal}}/externals/check-billing",
+							"host": [
+								"{{paymentUrlLocal}}"
+							],
+							"path": [
+								"externals",
+								"check-billing"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Check SYB",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "user-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluaXN0cmF0b3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYXRvciIsImRlcGFydG1lbnQiOiJJVCIsImRlcGFydG1lbnRDb2RlIjoiSVQiLCJncm91cENvZGUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5pc3RyYXRvckBtdWZnLmNvLmlkIiwibmJmIjoxNzUwMjE4OTgzLCJleHAiOjE3NTAyMjA3ODN9.k0XmhIZQbVLmvpdJt-uG_YgYYXES52FVzhgLWfeDhZI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"applicationStatus\": \"New\",\r\n    \"startForm\": \"01-07-2022\",\r\n    \"categoryId\": \"50304501-add3-439d-af60-e8c3335f13a4\",\r\n    \"categoryName\": \"TV Cable & Internet\",\r\n    \"productId\": \"387a8e62-c07d-46d7-a543-ecf007678c33\",\r\n    \"productCode\": \"232333\",\r\n    \"productName\": \"Product Name\",\r\n    \"productVersion\": \"2\",\r\n    \"startDebitDate\": 10,\r\n    \"dueDate\": 12,\r\n    \"xWorkingDay\": 2,\r\n    \"adminFee\": 2000,\r\n    \"creationCharge\": \"2000\",\r\n    \"accountNumberCharge\": \"123-23-45-6\",\r\n    \"accountNameCharge\": \"Yusuf Account Name\",\r\n    \"accountNumberDebit\": \"123-23-45-6\",\r\n    \"accountNameDebit\": \"Yusuf Account Name\",\r\n    \"cifNumberCharge\": \"CIF123456\",\r\n    \"notes\": \"-\",\r\n    \"cifNumberDebit\": \"CIF123456\",\r\n    \"billingId\": \"111111\",\r\n    \"customerName\": \"12\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{paymentUrlLocal}}/externals/check-billing",
+									"host": [
+										"{{paymentUrlLocal}}"
+									],
+									"path": [
+										"externals",
+										"check-billing"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"Success\",\n    \"message\": \"Data has been loaded\",\n    \"data\": {\n        \"billingId\": \"111111\",\n        \"name\": \"Judika\",\n        \"totalBill\": 110000\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DWH",
+			"item": [
+				{
+					"name": "Get Account Number Detail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "Authorization token from kong auth",
+								"type": "text"
+							},
+							{
+								"key": "user-token",
+								"value": "",
+								"description": "authorization jwt from user login to cone service",
+								"type": "text"
+							},
+							{
+								"key": "apikey",
+								"value": "",
+								"description": "static auth to acceess service api. not mandatory if called from kong",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\": \"3665CADIOD5998100912\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dwhLocal}}/AccountNumber",
+							"host": [
+								"{{dwhLocal}}"
+							],
+							"path": [
+								"AccountNumber"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Account Number Detail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"AccountNumber\": \"3665AUDIDR1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/dwh/accountnumber",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"dwh",
+										"accountnumber"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\r\n    \"code\": 200,\r\n    \"status\": \"Success\",\r\n    \"message\": null,\r\n    \"data\": {\r\n        \"accountName\": \"Randy Ananta\",\r\n        \"accountStatus\": \"Active\", // Active, Dormant, Inactive\r\n        \"cifNumber\": \"12345678\",\r\n        \"accountType\": \"AUD\",\r\n        \"accountCurrency\": \"IDR\"\r\n    }\r\n}"
+						},
+						{
+							"name": "Get Account Number Detail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "Authorization token from kong auth",
+										"type": "text"
+									},
+									{
+										"key": "user-token",
+										"value": "",
+										"description": "authorization jwt from user login to cone service",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "",
+										"description": "static auth to acceess service api. not mandatory if called from kong",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accountNumber\": \"3665CADIOD5998100912\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dwhLocal}}/AccountNumber",
+									"host": [
+										"{{dwhLocal}}"
+									],
+									"path": [
+										"AccountNumber"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\r\n    \"code\": 200,\r\n    \"status\": \"Success\",\r\n    \"message\": null,\r\n    \"data\": {\r\n        \"accountName\": \"Randy Ananta\",\r\n        \"accountStatus\": \"Active\", // Active, Dormant, Inactive\r\n        \"cifNumber\": \"12345678\",\r\n        \"accountType\": \"AUD\",\r\n        \"accountCurrency\": \"IDR\"\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Master Currency",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "Authorization token from kong auth",
+								"type": "text"
+							},
+							{
+								"key": "user-token",
+								"value": "",
+								"description": "authorization jwt from user login to cone service",
+								"type": "text"
+							},
+							{
+								"key": "apikey",
+								"value": "",
+								"description": "static auth to acceess service api. not mandatory if called from kong",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dwhLocal}}/MasterCurrency",
+							"host": [
+								"{{dwhLocal}}"
+							],
+							"path": [
+								"MasterCurrency"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "MasterCurrency",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"description": "Authorization token from kong auth",
+										"type": "text"
+									},
+									{
+										"key": "user-token",
+										"value": "",
+										"description": "authorization jwt from user login to cone service",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "",
+										"description": "static auth to acceess service api. not mandatory if called from kong",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dwhLocal}}/MasterCurrency",
+									"host": [
+										"{{dwhLocal}}"
+									],
+									"path": [
+										"MasterCurrency"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\r\n    \"code\": 200,\r\n    \"status\": \"Success\",\r\n    \"message\": null,\r\n    \"data\": {\r\n        \"currencies\": [\r\n            {\r\n                \"currencyCode\": \"USD\",\r\n                \"currencyName\": \"US Dollar\"\r\n            },\r\n            {\r\n                \"currencyCode\": \"JPY\",\r\n                \"currencyName\": \"Japanese Yen\"\r\n            }\r\n        ]\r\n    }\r\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"var Header = require('postman-collection').Header\r",
+					"pm.request.headers.add(new Header(\"user-token: \" + pm.globals.get(\"access_token\")));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
